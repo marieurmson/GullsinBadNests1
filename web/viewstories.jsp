@@ -1,4 +1,4 @@
-<%@ page import="models.StoryModel" %>
+<%@ page import="models.PostModel" %>
 <%@ page import="models.UserModel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -31,9 +31,9 @@
         user.setUsername("anonymous");
     }
 
-    StoryModel stories[] = (StoryModel[]) request.getAttribute("stories");
+    PostModel stories[] = (PostModel[]) request.getAttribute("stories");
     if (stories == null) {
-        stories = new StoryModel[0];
+        stories = new PostModel[0];
     }
 %>
 <p></p>

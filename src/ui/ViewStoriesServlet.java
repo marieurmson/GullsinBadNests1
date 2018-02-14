@@ -3,7 +3,7 @@ package ui;
 import datalayer.StoryDao;
 import datalayer.UniqueIdDao;
 import datalayer.UserDao;
-import models.StoryModel;
+import models.PostModel;
 import models.UserModel;
 
 import javax.servlet.RequestDispatcher;
@@ -86,10 +86,10 @@ public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
      * @param request
      */
     private void loadStoriesIntoRequest(HttpServletRequest request) {
-        ArrayList<StoryModel> storiesList = StoryDao.getStories();
+        ArrayList<PostModel> storiesList = StoryDao.getStories();
 
         // We're going to convert the array list to an array because it works better in the JSP.
-        StoryModel[] stories = storiesList.toArray(new StoryModel[storiesList.size()]);
+        PostModel[] stories = storiesList.toArray(new PostModel[storiesList.size()]);
         request.setAttribute("stories", stories);
     }
 

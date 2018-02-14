@@ -1,6 +1,6 @@
 package datalayer;
 
-import models.StoryModel;
+import models.PostModel;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ public class StoryDao {
     /**
      * Given a story ID, return the story.
      */
-    public static StoryModel getStory(int storyId) {
+    public static PostModel getStory(int storyId) {
         File file = new File(getFilePath(storyId));
         return getStory(file);
     }
@@ -27,14 +27,14 @@ public class StoryDao {
      * Save the given story model.  Make sure you've set
      * the ID in the story model.
      */
-    public static void saveStory(StoryModel storyModel){
+    public static void saveStory(PostModel postModel){
         try {
-            File file = new File(getFilePath(storyModel.getStoryId()));
+            File file = new File(getFilePath(postModel.getStoryId()));
             file.createNewFile();
             FileOutputStream fos;
             fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(storyModel);
+            oos.writeObject(postModel);
             oos.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class StoryDao {
      * and save it.
      */
     public static void saveStory(int storyId, String storyText, String username, int commentOnStoryId) {
-        StoryModel story = new StoryModel();
+        PostModel story = new PostModel();
         story.setStoryId(UniqueIdDao.getID());
         story.setStory(storyText);
         story.setUsername(username);
@@ -57,8 +57,8 @@ public class StoryDao {
     /**
      * Return all saved stories.
      */
-    public static ArrayList<StoryModel> getStories() {
-        ArrayList<StoryModel> stories = new ArrayList<>();
+    public static ArrayList<PostModel> getStories() {
+        ArrayList<PostModel> stories = new ArrayList<>();
         String dir = DaoUtils.storageDirectoryName();
         File folder = new File(dir);
         File[] listOfFiles = folder.listFiles();
@@ -83,10 +83,10 @@ public class StoryDao {
     /*
      * Given a story filename, return the story that's saved in the file.
      */
-    private static StoryModel getStory(File file) {
-        StoryModel story = null;
+    private static PostModel getStory(File file) {
+        PostModel story = null;
         try {
-            story = new StoryModel();
+            story = new PostModel();
 
             if (!file.exists()) {
                 throw new FileNotFoundException();
@@ -94,7 +94,7 @@ public class StoryDao {
             else{
                 FileInputStream fis = new FileInputStream(file);
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                story = (StoryModel) ois.readObject();
+                story = (PostModel) ois.readObject();
                 ois.close();
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -117,7 +117,7 @@ public class StoryDao {
         int storyId = 100;
         String text = "It was a dark and stormy night.";
         StoryDao dao = new StoryDao();
-        StoryModel story = new StoryModel();
+        PostModel story = new PostModel();
         story.setStoryId(storyId);
         story.setStory("It was a dark and stormy night.");
         story.setUsername("allan");
@@ -128,7 +128,7 @@ public class StoryDao {
         assert(story.getStoryId() == 100);
         assert(story.getStory().compareTo(text) == 0);
 
-        ArrayList<StoryModel> stories = dao.getStories();
+        ArrayList<PostModel> stories = dao.getStories();
         assert(stories != null && stories.size() >= 5);
 
         //dao.deleteStory(storyId);

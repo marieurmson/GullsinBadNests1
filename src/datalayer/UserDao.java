@@ -1,10 +1,8 @@
 package datalayer;
 
-import models.StoryModel;
 import models.UserModel;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class UserDao {
 
@@ -89,14 +87,20 @@ public class UserDao {
 
     private static void testUserDao() {
         String username = "danny";
+        String password = "popcorn4";
         UserDao dao = new UserDao();
         UserModel user = new UserModel();
         user.setUsername(username);
+        user.setPassword(password);
         dao.saveUser(user);
 
         user = dao.getUser(username);
-        assert(user != null);
+        if(user != null){
+            System.out.println("The test passed.");
+        }
         assert(user.getUsername().compareTo(username) == 0);
+        assert(user.getPassword().compareTo(password) == 0);
+        System.out.println("Username: " + user.getUsername() + " Password: " + user.getPassword());
 
         dao.deleteUser(username);
     }

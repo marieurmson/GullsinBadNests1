@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
-<title>Unhappy Stories</title>
+<title>Recent Complaints</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" href="resources/style.css">
 <!-- Latest compiled and minified CSS -->
@@ -31,16 +31,16 @@
         user.setUsername("anonymous");
     }
 
-    PostModel stories[] = (PostModel[]) request.getAttribute("stories");
-    if (stories == null) {
-        stories = new PostModel[0];
+    PostModel posts[] = (PostModel[]) request.getAttribute("posts");
+    if (posts == null) {
+        posts = new PostModel[0];
     }
 %>
 <p></p>
 <p></p>
 <div class="container">
 
-    <form action="viewStories" method="post">
+    <form action="viewPosts" method="post">
 
         <!-- Navigation Bar -->
         <nav class="navbar navbar-inverse">
@@ -54,8 +54,8 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="viewStories">Stories</a></li>
-                        <li class="inactive"><a href="viewStories">Ratings</a></li>
+                        <li class="active"><a href="viewPosts">Posts</a></li>
+                        <li class="inactive"><a href="viewPosts">Ratings</a></li>
                         <li class="inactive"><a href=""><%=user.getUsername()%></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -70,17 +70,17 @@
             <h1>Oh No!</h1>
         </div>
 
-        <!-- Display a list of stories -->
+        <!-- Display a list of posts -->
         <div class="container">
             <div class="row">
                 <div class="well well-sm">
-                    <h3><p class="text-primary"><%=stories.length%> Stories</h3>
+                    <h3><p class="text-primary"><%=posts.length%> Posts</h3>
                     <div class="pre-scrollable">
                         <ul class="list-group">
                             <%
-                                for (int i = stories.length - 1; i >= 0; i--) {
+                                for (int i = posts.length - 1; i >= 0; i--) {
                             %>
-                            <li class="list-group-item">[<%=stories[i].getUsername()%>] - <%=stories[i].getStory()%>
+                            <li class="list-group-item">[<%=posts[i].getUsername()%>] - <%=posts[i].getPost()%>
                             </li>
                             <%
                                 }
@@ -91,15 +91,15 @@
             </div>
         </div>
 
-        <!-- Input for a new story -->
+        <!-- Input for a new post -->
         <div class="container">
             <div class="row">
                 <div class="well well-sm">
                 <div class="form-group">
-                    <label for="storyText">Tell your story</label>
+                    <label for="postText">Write a Complaint</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="storyText" name="storyText"
-                               placeholder="What's your story?">
+                        <input type="text" class="form-control" id="postText" name="postText"
+                               placeholder="What's your complaint?">
                     </div>
                     <!-- Button -->
                     <input type="submit" class="btn btn-info" name="submitButton" value="Submit">

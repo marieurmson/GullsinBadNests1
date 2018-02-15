@@ -45,7 +45,7 @@ public class UserDao {
     }
 
     /**
-     * Given a story ID, where are we saving it to storage (file name)?
+     * Given a post ID, where are we saving it to storage (file name)?
      */
     private static String getFilePath(String username) {
         return DaoUtils.storageDirectoryName() + File.separator + "user" + username + ".txt";

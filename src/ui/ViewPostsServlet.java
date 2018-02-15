@@ -1,6 +1,6 @@
 package ui;
 
-import datalayer.StoryDao;
+import datalayer.PostDao;
 import datalayer.UniqueIdDao;
 import datalayer.UserDao;
 import models.PostModel;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.logging.Logger;
 
-public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
+public class ViewPostsServlet extends javax.servlet.http.HttpServlet {
     private Logger logger = Logger.getLogger(getClass().getName());
 
     /**
@@ -42,7 +42,7 @@ public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
         loadStoriesIntoRequest(request);
 
         // Show the page
-        RequestDispatcher dispatcher=request.getRequestDispatcher("/viewstories.jsp");
+        RequestDispatcher dispatcher=request.getRequestDispatcher("/viewposts.jsp");
         dispatcher.forward(request, response);
 
     }
@@ -75,7 +75,7 @@ public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
         // Before we go the page to display the stories, we need to get the stories.
         // And then shove the stories in to the request.
         loadStoriesIntoRequest(request);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/viewstories.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/viewposts.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -86,7 +86,7 @@ public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
      * @param request
      */
     private void loadStoriesIntoRequest(HttpServletRequest request) {
-        ArrayList<PostModel> storiesList = StoryDao.getStories();
+        ArrayList<PostModel> storiesList = PostDao.getStories();
 
         // We're going to convert the array list to an array because it works better in the JSP.
         PostModel[] stories = storiesList.toArray(new PostModel[storiesList.size()]);
@@ -98,7 +98,7 @@ public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
      */
     private void addStory(UserModel user, String storyText) {
         if (storyText != null && storyText.length() > 0 && user != null) {
-            StoryDao.saveStory(UniqueIdDao.getID(), storyText, user.getUsername(), 0);
+            PostDao.saveStory(UniqueIdDao.getID(), storyText, user.getUsername(), 0);
         }
     }
 

@@ -14,6 +14,9 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+<!--my own stylesheet -->
+<link rel="stylesheet" href="styles/welcome-stylesheet.css">
+
 </head>
 <body>
 <%--
@@ -39,16 +42,22 @@
 
   <form action="welcome" method="post">
   <div class="jumbotron">
-    <%-- changes the title of welcome page --%>
+    <%-- MU changed the title of welcome page --%>
     <h1>Gulls in Bad Nests</h1>
-    <p>Complain about your Endicott College dorm room!</p>
+    <p>Complain about your Endicott College dorm</p>
     <div class="form-group">
-      <input type="text" name="username" class="form-control" id="username" placeholder="User ID or Be Anonymous below. ">
+      <input type="text" name="username" class="form-control" id="username" placeholder="Enter username. ">
     </div>
+      <%-- MU added password field --%>
+        <div class="form-group">
+          <input type="password" name="password" class="form-control" id="password" placeholder="Enter password. ">
+      </div>
     <div class="container">
+      <div class="buttons">
       <input type="submit" class="btn btn-info" name="button" value="Log In">
       <input type="submit" class="btn btn-info" name="button" value="Create Account">
-      <%-- removed anonymous button --%>
+      </div>
+      <%-- MU removed anonymous button --%>
     </div>
   </div>
 

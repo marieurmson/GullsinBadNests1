@@ -29,17 +29,17 @@ public class ViewPostsServlet extends javax.servlet.http.HttpServlet {
 
         // Get data from the request
         UserModel user = loadUserFromRequest(request);
-        String storyText=request.getParameter("storyText");
+        String postText=request.getParameter("postText");
         String buttonValue = request.getParameter("submitButton");
 
         // If submit was hit, add a story.
         if (buttonValue != null && buttonValue.equals("Submit")){
-            addStory(user, storyText);
+            addPost(user, postText);
         }
 
         // Load any data we need on the page into the request.
         request.setAttribute("user", user);
-        loadStoriesIntoRequest(request);
+        loadPostsIntoRequest(request);
 
         // Show the page
         RequestDispatcher dispatcher=request.getRequestDispatcher("/viewposts.jsp");
@@ -74,9 +74,13 @@ public class ViewPostsServlet extends javax.servlet.http.HttpServlet {
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         // Before we go the page to display the stories, we need to get the stories.
         // And then shove the stories in to the request.
-        loadStoriesIntoRequest(request);
+        String user = (String) request.getSession().getAttribute("username");
+
+        request.setAttribute("username", user);
+        loadPostsIntoRequest(request);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewposts.jsp");
         dispatcher.forward(request, response);
+
     }
 
     /**
@@ -85,20 +89,20 @@ public class ViewPostsServlet extends javax.servlet.http.HttpServlet {
      *
      * @param request
      */
-    private void loadStoriesIntoRequest(HttpServletRequest request) {
-        ArrayList<PostModel> storiesList = PostDao.getStories();
+    private void loadPostsIntoRequest(HttpServletRequest request) {
+        ArrayList<PostModel> postsList = PostDao.getPosts();
 
         // We're going to convert the array list to an array because it works better in the JSP.
-        PostModel[] stories = storiesList.toArray(new PostModel[storiesList.size()]);
-        request.setAttribute("stories", stories);
+        PostModel[] posts = postsList.toArray(new PostModel[postsList.size()]);
+        request.setAttribute("posts", posts);
     }
 
     /**
      * Save a story.
      */
-    private void addStory(UserModel user, String storyText) {
-        if (storyText != null && storyText.length() > 0 && user != null) {
-            PostDao.saveStory(UniqueIdDao.getID(), storyText, user.getUsername(), 0);
+    private void addPost(UserModel user, String postText) {
+        if (postText != null && postText.length() > 0 && user != null) {
+            PostDao.savePost(UniqueIdDao.getID(), postText, user.getUsername(), 0);
         }
     }
 

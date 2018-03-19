@@ -25,38 +25,92 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
         // Load data from the request
         String buttonValue = request.getParameter("button");
         String username=request.getParameter("username");
+        String enteredPassword=request.getParameter("password");
+        String validUsername;
+        String validPassword;
+        String through = "no";
+
 
         // Create an account
         if (buttonValue != null && buttonValue.equals("Create Account") && username != null){
-            user = new UserModel();
-            user.setUsername(username);
-            UserDao.saveUser(user);
+
+            //MU if they enter nothing, do nothing
+            if(username.equals("") || enteredPassword.equals("")){
+                RequestDispatcher dispatcher=request.getRequestDispatcher("/welcome.jsp");
+                dispatcher.forward(request, response);
+                return;
+            }
+            //if they enter an empty username, create a new user
+            try {
+                user = UserDao.getUser(username);
+                validUsername = user.getUsername();
+                validPassword = user.getPassword();
+            }
+            catch(Exception e){
+                user = new UserModel();
+                user.setUsername(username);
+                //added password attaching code
+                user.setPassword(enteredPassword);
+                UserDao.saveUser(user);
+                through = "yes";
+            }
+            //if they enter an already taken username, they stay where they are
+            if(through.equals("no")) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/welcome.jsp");
+                dispatcher.forward(request, response);
+                return;
+            }
+
         }
 
         // Or log in
         else if (buttonValue != null && buttonValue.equals("Log In")){
-            user = UserDao.getUser(username);
-            if (user == null) {
+
+            //MU we will try to find the user by username, if the user is null (nonexistent) we will catch the exception
+            try {
+                user = UserDao.getUser(username);
+                validUsername = user.getUsername();
+                validPassword = user.getPassword();
+            }
+            catch(Exception e){
+                RequestDispatcher dispatcher=request.getRequestDispatcher("/welcome.jsp");
+                dispatcher.forward(request, response);
+                return;
+            }
+
+
+
+            // MU first validate that entered values are good.
+            if (user == null || user.equals("")) {
                 // We don't know who this is.
                 // We're going to stay on this page.
                 RequestDispatcher dispatcher=request.getRequestDispatcher("/welcome.jsp");
                 dispatcher.forward(request, response);
                 return;
             }
+            if(enteredPassword.equals(null) || enteredPassword.equals("")){
+                RequestDispatcher dispatcher=request.getRequestDispatcher("/welcome.jsp");
+                dispatcher.forward(request, response);
+                return;
+            }
+
+            // MU at this point, we know we have values entered and the user value is on file.
+            // continue with the password test.
+            // MU incorrect password was entered. we stay on this page.
+            if(!(validPassword.equals(enteredPassword))){
+                RequestDispatcher dispatcher=request.getRequestDispatcher("/welcome.jsp");
+                dispatcher.forward(request, response);
+                return;
+            }
         }
 
-        // Or by anonymous
-        else if (buttonValue != null && buttonValue.equals("Be Anonymous")){
-            user = new UserModel();
-            user.setUsername("anonymous");
-            UserDao.saveUser(user);
-        }
+        request.getSession().setAttribute("username", user.getUsername());
 
         // Load any data we need on the page into the request.
         request.setAttribute("user", user);
 
         // Show the stories page
-        RequestDispatcher dispatcher=request.getRequestDispatcher("/viewStories");
+        RequestDispatcher dispatcher=request.getRequestDispatcher("/viewPosts");
         dispatcher.forward(request, response);
     }
 

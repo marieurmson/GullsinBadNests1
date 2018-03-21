@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class globals {
     public ArrayList<DormModel> dorms;
-    public String universalTitle = "Alhambra Hall";
+    public String universalTitle;
 
     public globals(){
         dorms = new ArrayList();

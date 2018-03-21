@@ -53,7 +53,7 @@
 <p></p>
 <div class="container">
 
-    <form action="viewPosts" method="post">
+    <form action="resHallPage" method="post">
 
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -73,17 +73,19 @@
                             <button class="dropbtn">All Residence Halls
                                 <i class="fa fa-caret-down"></i>
                             </button>
-                            <%String title;%>
+                            <%String title;
+                            String test;%>
                             <div class="dropdown-content">
                                 <%globals g = new globals();
                                     for(int i = 0; i < g.dorms.size(); i++){
                                         title = g.dorms.get(i).name;%>
-                                <a href="reshallpage.jsp" onclick =g.getName(title)><%=title%></a>
+                                <a href="reshallpage?id=<%=title%>"><%=title%></a>
+
+                                <%--<a href="reshallpage.jsp?id=<%=title%>"><%=title%></a>--%>
                                 <%}%>
 
                             </div>
                         </div>
-                        <%-- MU removed third part of nav bar --%>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="welcome"><span class="glyphicon glyphicon-log-out"></span>Log Out <b><%=user.getUsername()%></b></a></li>
@@ -97,8 +99,7 @@
             <img src="images/gulllogo.png" alt="Gull Logo">
         </div>
         <div class="jumbotron">
-            <%-- MU changed the jumbotron text --%>
-            <h1><%=g.universalTitle%></h1>
+            <h1><%=request.getAttribute("dormID")%></h1>
 
 
         </div>

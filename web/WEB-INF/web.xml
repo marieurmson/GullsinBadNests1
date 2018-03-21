@@ -25,4 +25,13 @@
         <url-pattern>/welcome</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>resHallPageServlet</servlet-name>
+        <servlet-class>ui.ResHallPageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>resHallPageServlet</servlet-name>
+        <url-pattern>/reshallpage</url-pattern>
+    </servlet-mapping>
+
 </web-app>

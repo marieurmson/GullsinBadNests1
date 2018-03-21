@@ -31,6 +31,8 @@ public class ViewPostsServlet extends javax.servlet.http.HttpServlet {
         UserModel user = loadUserFromRequest(request);
         String postText=request.getParameter("postText");
         String buttonValue = request.getParameter("submitButton");
+        String dormID = request.getParameter("id");
+        //make a new string with the id
 
         // If submit was hit, add a story.
         if (buttonValue != null && buttonValue.equals("Submit")){
@@ -39,6 +41,8 @@ public class ViewPostsServlet extends javax.servlet.http.HttpServlet {
 
         // Load any data we need on the page into the request.
         request.setAttribute("user", user);
+        // set a new attribute of the dorm name
+        request.setAttribute("dormID", dormID);
         loadPostsIntoRequest(request);
 
         // Show the page
@@ -51,7 +55,7 @@ public class ViewPostsServlet extends javax.servlet.http.HttpServlet {
      * Grab the username from the request and create a user model.
      */
     private UserModel loadUserFromRequest(HttpServletRequest request) {
-        String username=request.getParameter("username");
+        String username= (String) request.getSession().getAttribute("username");
         UserModel user = UserDao.getUser(username);
 
         // If there is no user for some weird reason, just use anonymous.
@@ -74,9 +78,13 @@ public class ViewPostsServlet extends javax.servlet.http.HttpServlet {
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         // Before we go the page to display the stories, we need to get the stories.
         // And then shove the stories in to the request.
-        String user = (String) request.getSession().getAttribute("username");
+        String username = (String) request.getSession().getAttribute("username");
+        String dormID = request.getParameter("id");
 
-        request.setAttribute("username", user);
+        UserModel user = loadUserFromRequest(request);
+        request.setAttribute("user", user);
+
+        request.setAttribute("dormID", dormID);
         loadPostsIntoRequest(request);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewposts.jsp");
         dispatcher.forward(request, response);

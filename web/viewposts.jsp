@@ -21,7 +21,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
-
 <!--my own stylesheet -->
 <link rel="stylesheet" href="styles/welcome-stylesheet.css">
 
@@ -41,7 +40,6 @@
     if (posts == null) {
         posts = new PostModel[0];
     }
-    //DormModel currentDorm = (DormModel) request.getAttribute("dorm");
 %>
 <p></p>
 <p></p>
@@ -71,7 +69,7 @@
                                     <%globals g = new globals();
                                     for(int i = 0; i < g.dorms.size(); i++){
                                         String title = g.dorms.get(i).name;%>
-                                     <a href="reshallpage.jsp"><%=title%></a>
+                                    <a href="reshallpage?id=<%=title%>"><%=title%></a>
                                     <%}%>
                                 </div>
                             </div>

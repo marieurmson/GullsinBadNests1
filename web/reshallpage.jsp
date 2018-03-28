@@ -7,7 +7,9 @@
 --%>
 <%@ page import="models.PostModel" %>
 <%@ page import="models.UserModel" %>
+<%@ page import="models.DormModel" %>
 <%@ page import="models.globals" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="static jdk.nashorn.internal.objects.NativeFunction.function" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -53,7 +55,8 @@
 <p></p>
 <div class="container">
 
-    <form action="resHallPage" method="post">
+
+    <form action="reshallpage?id=<%=request.getAttribute("dormID")%>" method="post">
 
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -73,8 +76,7 @@
                             <button class="dropbtn">All Residence Halls
                                 <i class="fa fa-caret-down"></i>
                             </button>
-                            <%String title;
-                            String test;%>
+                            <%String title;%>
                             <div class="dropdown-content">
                                 <%globals g = new globals();
                                     for(int i = 0; i < g.dorms.size(); i++){
@@ -124,16 +126,30 @@
         <div class="container">
             <div class="row">
                 <div class="well well-sm">
-                    <h3><p class="text-primary"><%=posts.length%> Posts</h3>
+                    <% DormModel currentDorm = new DormModel((String)request.getAttribute("dormID"));
+                        currentDorm.allPosts = (ArrayList)request.getAttribute("specific dorm post array");
+                        if(currentDorm.allPosts == null){
+                            PostModel p = new PostModel();
+                            p.setUsername("ColdGull");
+                            p.setPost("Too cold!");
+                            currentDorm.allPosts.add(p);
+                        }
+                    %>
+                            <h3><p class="text-primary"><%=currentDorm.allPosts.size()%> Posts</h3>
                     <div class="pre-scrollable">
                         <ul class="list-group">
                             <%
-                                for (int i = posts.length - 1; i >= 0; i--) {
+                                for (int i = 0; i < currentDorm.allPosts.size(); i++) {
+                                    //maybe it's because nothing has been set there yet... for username and post.
+                                    //if(currentDorm.allPosts.get(i).getUsername() == null || currentDorm.allPosts.get(i).getPost() == null){
+                                        //currentDorm.allPosts.get(i).setUsername("No posts yet!");
+                                        //currentDorm.allPosts.get(i).setPost(" ");
+                                    //}
                             %>
-                            <li class="list-group-item">[<%=posts[i].getUsername()%>] - <%=posts[i].getPost()%>
+                            <li class="list-group-item">[<%=currentDorm.allPosts.get(i).getUsername()%>] - <%=currentDorm.allPosts.get(i).getPost()%>
                             </li>
                             <%
-                                }
+                                    }
                             %>
                         </ul>
                     </div>

@@ -89,6 +89,7 @@ public class ViewPostsServlet extends javax.servlet.http.HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewposts.jsp");
         dispatcher.forward(request, response);
 
+
     }
 
     /**

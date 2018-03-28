@@ -7,6 +7,7 @@ public class DormModel {
 
     public DormModel(String name){
         this.name = name;
+        allPosts = new ArrayList<PostModel>();
     }
 
 

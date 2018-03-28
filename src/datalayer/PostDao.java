@@ -64,7 +64,8 @@ public class PostDao {
         File[] listOfFiles = folder.listFiles();
 
         for(int i = 0; i < listOfFiles.length; i++){
-            if(listOfFiles[i].getName().startsWith("story") &&
+            //changed "story" to "post"
+            if(listOfFiles[i].getName().startsWith("post") &&
                     listOfFiles[i].getName().endsWith(".txt")){
                 posts.add(getPost(listOfFiles[i]));
             }

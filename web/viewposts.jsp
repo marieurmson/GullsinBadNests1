@@ -1,7 +1,7 @@
 <%@ page import="models.PostModel" %>
 <%@ page import="models.UserModel" %>
 <%@ page import="models.DormModel" %>
-<%@ page import="models.globals" %>
+<%@ page import="models.DormData" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -66,7 +66,8 @@
                                     <i class="fa fa-caret-down"></i>
                                 </button>
                                 <div class="dropdown-content">
-                                    <%globals g = new globals();
+                                    <%
+                                        DormData g = new DormData();
                                     for(int i = 0; i < g.dorms.size(); i++){
                                         String title = g.dorms.get(i).name;%>
                                     <a href="reshallpage?id=<%=title%>"><%=title%></a>

@@ -8,7 +8,7 @@
 <%@ page import="models.PostModel" %>
 <%@ page import="models.UserModel" %>
 <%@ page import="models.DormModel" %>
-<%@ page import="models.globals" %>
+<%@ page import="models.DormData" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="static jdk.nashorn.internal.objects.NativeFunction.function" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -78,7 +78,8 @@
                             </button>
                             <%String title;%>
                             <div class="dropdown-content">
-                                <%globals g = new globals();
+                                <%
+                                    DormData g = new DormData();
                                     for(int i = 0; i < g.dorms.size(); i++){
                                         title = g.dorms.get(i).name;%>
                                 <a href="reshallpage?id=<%=title%>"><%=title%></a>
@@ -128,23 +129,13 @@
                 <div class="well well-sm">
                     <% DormModel currentDorm = new DormModel((String)request.getAttribute("dormID"));
                         currentDorm.allPosts = (ArrayList)request.getAttribute("specific dorm post array");
-                        if(currentDorm.allPosts == null){
-                            PostModel p = new PostModel();
-                            p.setUsername("ColdGull");
-                            p.setPost("Too cold!");
-                            currentDorm.allPosts.add(p);
-                        }
                     %>
                             <h3><p class="text-primary"><%=currentDorm.allPosts.size()%> Posts</h3>
                     <div class="pre-scrollable">
                         <ul class="list-group">
                             <%
-                                for (int i = 0; i < currentDorm.allPosts.size(); i++) {
-                                    //maybe it's because nothing has been set there yet... for username and post.
-                                    //if(currentDorm.allPosts.get(i).getUsername() == null || currentDorm.allPosts.get(i).getPost() == null){
-                                        //currentDorm.allPosts.get(i).setUsername("No posts yet!");
-                                        //currentDorm.allPosts.get(i).setPost(" ");
-                                    //}
+                                for (int i = currentDorm.allPosts.size() - 1 ; i >= 0; i--) {
+
                             %>
                             <li class="list-group-item">[<%=currentDorm.allPosts.get(i).getUsername()%>] - <%=currentDorm.allPosts.get(i).getPost()%>
                             </li>

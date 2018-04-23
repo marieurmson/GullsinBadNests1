@@ -36,7 +36,7 @@ public class ViewPostsServlet extends javax.servlet.http.HttpServlet {
 
         // If submit was hit, add a story.
         if (buttonValue != null && buttonValue.equals("Submit")){
-            addPost(user, postText);
+            //addPost(user, postText);
         }
 
         // Load any data we need on the page into the request.
@@ -100,6 +100,8 @@ public class ViewPostsServlet extends javax.servlet.http.HttpServlet {
      */
     private void loadPostsIntoRequest(HttpServletRequest request) {
         ArrayList<PostModel> postsList = PostDao.getPosts();
+        //int d = postsList.get(0).getDormIndex();
+        //String s = postsList.get(0).getDormByIndex(d);
 
         // We're going to convert the array list to an array because it works better in the JSP.
         PostModel[] posts = postsList.toArray(new PostModel[postsList.size()]);
@@ -108,12 +110,14 @@ public class ViewPostsServlet extends javax.servlet.http.HttpServlet {
 
     /**
      * Save a story.
+     * // DO WE EVEN NEED THIS HERE????
+     *
      */
-    private void addPost(UserModel user, String postText) {
+   /* private void addPost(UserModel user, String postText, int indexNum) {
         if (postText != null && postText.length() > 0 && user != null) {
-            PostDao.savePost(UniqueIdDao.getID(), postText, user.getUsername(), 0);
+            PostDao.savePost(UniqueIdDao.getID(), postText, user.getUsername(), 0, indexNum);
         }
-    }
+    }*/
 
     /**
      * This method is useful in debugging what you got back in the

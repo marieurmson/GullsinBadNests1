@@ -9,110 +9,12 @@ import java.nio.file.Files;
 
 
 public class DormDao {
-    /**
-     * Given a dorm ID, return the dorm.
-     */
-    /*public static DormModel getDorm(int dormId) {
-        File file = new File(getFilePath(dormId));
-        return getDorm(file);
-    }*/
-
-    /*
-     * Given a dorm ID, delete it from storage.
-     */
-    /*public static void deleteDorm(int dormId) {
-        File file = new File(getFilePath(dormId));
-        file.delete();
-    }*/
-
-    /*
-     * Save the given dorm model.  Make sure you've set
-     * the ID in the dorm model.
-     */
-    /*public static void saveDorm(DormModel dormModel){
-        try {
-            File file = new File(getFilePath(dormModel.getIndexNum(dormModel.name)));
-            file.createNewFile();
-            FileOutputStream fos;
-            fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(dormModel);
-            oos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
-    /**
-     * Given a story ID and story text, make a story model
-     * and save it.
-     */
-    /*public static void saveDorm(int dormId, String username) {
-        DormModel dorm = new DormModel();
-        dorm.setDormId(UniqueIdDao.getID());
-        dorm.setUsername(username);
-        saveDorm(dorm);
-    }*/
-
-    /**
-     * Return all saved dorms.
-     */
-    /*public static ArrayList<DormModel> getDorms() {
-        ArrayList<DormModel> dorms = new ArrayList<>();
-        String dir = DaoUtils.storageDirectoryName();
-        File folder = new File(dir);
-        File[] listOfFiles = folder.listFiles();
-
-        for(int i = 0; i < listOfFiles.length; i++){
-            //changed "story" to "post"
-            if(listOfFiles[i].getName().startsWith("post") &&
-                    listOfFiles[i].getName().endsWith(".txt")){
-                dorms.add(getDorm(listOfFiles[i]));
-            }
-        }
-
-        return dorms;
-    }*/
-
-    /**
-     * Given a story ID, where are we saving it to storage (file name)?
-     */
-    /*private static String getFilePath(int dormId) {
-        return DaoUtils.storageDirectoryName() + File.separator + "dorm" + dormId + ".txt";
-    }*/
-
-    /*
-     * Given a story filename, return the story that's saved in the file.
-     */
-    /*private static DormModel getDorm(File file) {
-        DormModel dorm = null;
-        try {
-            dorm = new DormModel(dorm.name);
-
-            if (!file.exists()) {
-                throw new FileNotFoundException();
-            }
-            else{
-                FileInputStream fis = new FileInputStream(file);
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                dorm = (DormModel) ois.readObject();
-                ois.close();
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return dorm;
-    }*/
-    //!!!!!!!!!!!!!!!!! does this work?
     public static void writeToFile(String dormID, ArrayList<PostModel> allPosts){
         //makes temp dorm to hold data passed in from servlet
         DormModel tempDorm = new DormModel(dormID);
         tempDorm.indexNum = tempDorm.getIndexNum(dormID);
-        //tempDorm.allPosts = allPosts;//actually copy it not just =
-        tempDorm.allPosts = (ArrayList<PostModel>)allPosts.clone(); //copied arraylist
+        tempDorm.allPosts = (ArrayList<PostModel>)allPosts.clone();//copied arraylist
         ArrayList <PostModel> allPosts2 = new ArrayList<PostModel>();
-        //tempDorm.allPosts.get(0);
         String fileName = "dorm" + String.valueOf(tempDorm.indexNum);
         File dormFile = new File(fileName);
         String backupName = "dorm" + String.valueOf(tempDorm.indexNum) + "backup";
@@ -120,8 +22,7 @@ public class DormDao {
         //initialize the backup file name as a string
 
 
-        //read in the new array, and ADD THE NEW POST TO THE END OF IT!!!!!
-
+        //read in the new array, and add the new post to the end of it
         try {
             allPosts2 = readFromFile(tempDorm, tempDorm.indexNum);
         } catch (IOException e) {
@@ -145,13 +46,6 @@ public class DormDao {
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(allPosts2);
                 oos.close();
-
-                //for(PostModel p: tempDorm.allPosts){
-                    //aoos.writeObject(p);
-                //}
-                //aoos.close();
-                //byte[] rawData = buffer.toByteArray();
-
             } catch (IOException e){
                 e.printStackTrace();
                 if(backupFile.exists()){
@@ -210,29 +104,7 @@ public class DormDao {
             }
             fin.close();
         }
-        /*try {
-            FileInputStream fis = new FileInputStream(dormFile);
-
-            //if the end of the file has not been reached, researched here:https://docs.oracle.com/javase/7/docs/api/java/io/FileInputStream.html
-            if(fis.getChannel().size() != 0){
-                //ObjectInputStream ois = new ObjectInputStream(fis);
-                Object object = ois.readObject();
-                tempDorm.allPosts = (ArrayList <PostModel>)object;
-                //while(object != null){
-                //tempDorm.allPosts.add((PostModel)object);
-                //object = ois.readObject();
-                //}
-                ois.close();
-                //tempDorm.allPosts = (ArrayList<PostModel>)ois.readObject(); //= (ArrayList<PostModel>) ois.readObject();
-                //ois.reset();
-            }
-            fis.close();
-        }catch(IOException|ClassNotFoundException e){
-            e.printStackTrace();
-        }*/
-        //returns arraylist that is populated with the correct data from the file
-
-        //this isn't fully reading what is in the file for some reason
+        //return the arraylist populated with all the posts
         return tempDorm2.allPosts;
     }
     //researched copying of files here: https://www.journaldev.com/861/java-copy-file

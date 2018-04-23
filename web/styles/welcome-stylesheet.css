@@ -12,6 +12,12 @@
     margin-right: 160px;
     float: right;
 }
+.reshallpic img{
+    position: relative;
+    top: 8px;
+    margin-right: 200px;
+    float: right;
+}
 p{
     color: white;
     font-family: HelveticaNeue-UltraLight;
@@ -88,4 +94,25 @@ p{
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
     display: block;
+}
+.pre-scrollable .post-data {
+    color: white;
+    font-family: HelveticaNeue-UltraLight;
+    font-size: xx-large;
+
+}
+.post-container{
+    float: right;
+    width: 101%;
+}
+.comment-container{
+    margin-left: -1%;
+    float: left;
+    width: 98%;
+}
+.comment-container2{
+    width: 99%;
+}
+.post-container .well-sm{
+    border-radius: 7px;
 }

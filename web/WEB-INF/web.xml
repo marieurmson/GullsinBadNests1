@@ -33,5 +33,14 @@
         <servlet-name>resHallPageServlet</servlet-name>
         <url-pattern>/reshallpage</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>viewAPostServlet</servlet-name>
+        <servlet-class>ui.ViewAPostServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>viewAPostServlet</servlet-name>
+        <url-pattern>/viewapost</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

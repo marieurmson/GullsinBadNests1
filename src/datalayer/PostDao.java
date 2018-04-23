@@ -45,12 +45,13 @@ public class PostDao {
      * Given a story ID and story text, make a story model
      * and save it.
      */
-    public static void savePost(int postId, String postText, String username, int commentOnPostId) {
+    public static void savePost(int postId, String postText, String username, int commentOnPostId, int indexNum) {
         PostModel post = new PostModel();
         post.setPostId(UniqueIdDao.getID());
         post.setPost(postText);
         post.setUsername(username);
         post.setCommentOnPostID(commentOnPostId);
+        post.setDormIndex(indexNum);
         savePost(post);
     }
 
@@ -103,6 +104,27 @@ public class PostDao {
         }
 
         return post;
+    }
+    /**
+     * Return all saved stories.
+     */
+    public static ArrayList<PostModel> getPostsThatAreComments(int commentsOnPostId) {
+        ArrayList<PostModel> posts = new ArrayList<>();
+        String dir = DaoUtils.storageDirectoryName();
+        File folder = new File(dir);
+        File[] listOfFiles = folder.listFiles();
+
+        for(int i = 0; i < listOfFiles.length; i++){
+            if(listOfFiles[i].getName().startsWith("post") &&
+                    listOfFiles[i].getName().endsWith(".txt")){
+                PostModel post = getPost(listOfFiles[i]);
+                if (post.getCommentOnPostID() == commentsOnPostId) {
+                    posts.add(getPost(listOfFiles[i]));
+                }
+            }
+        }
+
+        return posts;
     }
 
     /**

@@ -83,8 +83,6 @@
                                     for(int i = 0; i < g.dorms.size(); i++){
                                         title = g.dorms.get(i).name;%>
                                 <a href="reshallpage?id=<%=title%>"><%=title%></a>
-
-                                <%--<a href="reshallpage.jsp?id=<%=title%>"><%=title%></a>--%>
                                 <%}%>
 
                             </div>
@@ -98,8 +96,8 @@
         </nav>
 
         <!-- Display the jumbotron -->
-        <div class="gulllogo">
-            <img src="images/gulllogo.png" alt="Gull Logo">
+        <div class="reshallpic">
+            <img src="images/<%=request.getAttribute("dormID")%>.jpg" alt="The Hall" height="180" width="240">
         </div>
         <div class="jumbotron">
             <h1><%=request.getAttribute("dormID")%></h1>
@@ -135,9 +133,13 @@
                         <ul class="list-group">
                             <%
                                 for (int i = currentDorm.allPosts.size() - 1 ; i >= 0; i--) {
+                                    if(currentDorm.allPosts.get(i).getCommentOnPostID() != 0){
+                                        continue;
+                                    }
 
                             %>
-                            <li class="list-group-item">[<%=currentDorm.allPosts.get(i).getUsername()%>] - <%=currentDorm.allPosts.get(i).getPost()%>
+                            <li class="list-group-item"><b>[<%=currentDorm.allPosts.get(i).getUsername()%>]:</b>  <%=currentDorm.allPosts.get(i).getPost()%>
+                                <input type="submit" class="btn btn-info" name="<%=currentDorm.allPosts.get(i).getPostId()%>" value="View">
                             </li>
                             <%
                                     }
@@ -147,6 +149,7 @@
                 </div>
             </div>
         </div>
+
 
 
         <!-- This is a screet input to the post!  Acts as if the user

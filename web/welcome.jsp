@@ -19,36 +19,19 @@
 
 </head>
 <body>
-<%--
-  UiMessage msg = (UiMessage) request.getAttribute("message");
-  if (msg == null) {
-      msg = new UiMessage();
-      msg.setMessage("");
-  }
-  CollegeModel college = (CollegeModel) request.getAttribute("college");
-  if (college == null) {
-      college = new CollegeModel();
-  }
-  String hostOfSim = (String) request.getAttribute("host");
-  if (hostOfSim == null) {
-    hostOfSim = "http://localhost:8080/enccollegesim/";
-  } else {
-    hostOfSim = hostOfSim;
-  }
---%>
 <p></p>
 <p></p>
 <div class="container">
 
   <form action="welcome" method="post">
   <div class="jumbotron">
-    <%-- MU changed the title of welcome page --%>
+    <%-- changed the title of welcome page --%>
     <h1>Gulls in Bad Nests</h1>
     <p>Complain about your Endicott College dorm</p>
     <div class="form-group">
       <input type="text" name="username" class="form-control" id="username" placeholder="Enter username. ">
     </div>
-      <%-- MU added password field --%>
+      <%-- added password field --%>
         <div class="form-group">
           <input type="password" name="password" class="form-control" id="password" placeholder="Enter password. ">
       </div>
@@ -57,7 +40,7 @@
       <input type="submit" class="btn btn-info" name="button" value="Log In">
       <input type="submit" class="btn btn-info" name="button" value="Create Account">
       </div>
-      <%-- MU removed anonymous button --%>
+      <%-- removed anonymous button --%>
     </div>
   </div>
 

@@ -2,6 +2,7 @@
 <%@ page import="models.UserModel" %>
 <%@ page import="models.DormModel" %>
 <%@ page import="models.DormData" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -58,9 +59,8 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <%-- MU changed nav bar --%>
+                        <%-- changed nav bar --%>
                         <li class="active"><a href="viewPosts">Home</a></li>
-                        <%--<li class="inactive"><a href="viewPosts">All Residence Halls</a></li>--%>
                             <div class="dropdown">
                                 <button class="dropbtn">All Residence Halls
                                     <i class="fa fa-caret-down"></i>
@@ -74,7 +74,7 @@
                                     <%}%>
                                 </div>
                             </div>
-                        <%-- MU removed third part of nav bar --%>
+                        <%-- removed third part of nav bar --%>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="welcome"><span class="glyphicon glyphicon-log-out"></span>Log Out <b><%=user.getUsername()%></b></a></li>
@@ -88,7 +88,7 @@
             <img src="images/gulllogo.png" alt="Gull Logo">
         </div>
         <div class="jumbotron">
-            <%-- MU changed the jumbotron text --%>
+            <%-- changed the jumbotron text --%>
             <h1>Gulls in Bad Nests</h1>
             <p>Complain about your Endicott College dorm</p>
 
@@ -99,7 +99,15 @@
         <div class="container">
             <div class="row">
                 <div class="well well-sm">
-                    <h3><p class="text-primary"><%=posts.length%> Posts</h3>
+                    <%
+                    ArrayList<PostModel> nonComment = new ArrayList();
+                    for(int i = posts.length - 1; i >=0; i--){
+                        if(posts[i].getCommentOnPostID() == 0){
+                            nonComment.add(posts[i]);
+
+                        }
+                    }%>
+                    <h3><p class="text-primary"><%=nonComment.size()%> Posts</h3>
                     <div class="pre-scrollable">
                         <ul class="list-group">
                             <%
@@ -118,25 +126,6 @@
                 </div>
             </div>
         </div>
-        <%-- MU this input for a new post shouldn't be on home page --%>
-        <!-- Input for a new post -->
-       <%-- <div class="container">
-            <div class="row">
-                <div class="well well-sm">
-                <div class="form-group">
-                    <label for="postText">Write a Complaint</label>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="postText" name="postText"
-                               placeholder="What's your complaint?">
-                    </div>
-                    <!-- Button -->
-                    <input type="submit" class="btn btn-info" name="submitButton" value="Submit">
-                </div>
-                </div>
-            </div>
-        </div>--%>
-        <%-- MU end of input for a new post --%>
-
 
         <!-- This is a screet input to the post!  Acts as if the user
              had an input field with the username.

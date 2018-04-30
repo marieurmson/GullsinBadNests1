@@ -14,7 +14,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
-<title>Recent Complaints</title>
+<title><%=request.getAttribute("dormID")%></title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" href="resources/style.css">
 
@@ -69,9 +69,8 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <%-- MU changed nav bar --%>
+                        <%-- changed nav bar --%>
                         <li class="active"><a href="viewPosts">Home</a></li>
-                        <%--<li class="inactive"><a href="viewPosts">All Residence Halls</a></li>--%>
                         <div class="dropdown">
                             <button class="dropbtn">All Residence Halls
                                 <i class="fa fa-caret-down"></i>
@@ -119,7 +118,7 @@
                 </div>
             </div>
         </div>
-        <%-- MU end of input for a new post --%>
+        <%-- end of input for a new post --%>
 
         <!-- Display a list of posts -->
         <div class="container">

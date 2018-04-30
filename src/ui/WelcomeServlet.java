@@ -34,7 +34,7 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
         // Create an account
         if (buttonValue != null && buttonValue.equals("Create Account") && username != null){
 
-            //MU if they enter nothing, do nothing
+            //if they enter nothing, do nothing
             if(username.equals("") || enteredPassword.equals("")){
                 RequestDispatcher dispatcher=request.getRequestDispatcher("/welcome.jsp");
                 dispatcher.forward(request, response);
@@ -66,7 +66,7 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
         // Or log in
         else if (buttonValue != null && buttonValue.equals("Log In")){
 
-            //MU we will try to find the user by username, if the user is null (nonexistent) we will catch the exception
+            //try to find the user by username, if the user is null catch the exception
             try {
                 user = UserDao.getUser(username);
                 validUsername = user.getUsername();
@@ -80,7 +80,7 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
 
 
 
-            // MU first validate that entered values are good.
+            // first validate that entered values are good.
             if (user == null || user.equals("")) {
                 // We don't know who this is.
                 // We're going to stay on this page.
@@ -94,9 +94,9 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
                 return;
             }
 
-            // MU at this point, we know we have values entered and the user value is on file.
+            // at this point, we know we have values entered and the user value is on file.
             // continue with the password test.
-            // MU incorrect password was entered. we stay on this page.
+            // incorrect password was entered. we stay on this page.
             if(!(validPassword.equals(enteredPassword))){
                 RequestDispatcher dispatcher=request.getRequestDispatcher("/welcome.jsp");
                 dispatcher.forward(request, response);

@@ -116,3 +116,6 @@ p{
 .post-container .well-sm{
     border-radius: 7px;
 }
+.list-group-item{
+    word-wrap: break-word;
+}

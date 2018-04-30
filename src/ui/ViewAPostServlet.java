@@ -45,8 +45,9 @@ public class ViewAPostServlet extends javax.servlet.http.HttpServlet {
 
         // Maybe the user submitted a comment.
         if (buttonValue != null && buttonValue.equals("Submit")){
-            //maybe?
-            addPostComment(user, postBeingDisplayedId, commentText, postBeingDisplayedId);
+            if(!commentText.equals("")) {
+                addPostComment(user, postBeingDisplayedId, commentText, postBeingDisplayedId);
+            }
         }
 
         // Show the page

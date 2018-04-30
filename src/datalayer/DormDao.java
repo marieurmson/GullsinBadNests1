@@ -41,8 +41,6 @@ public class DormDao {
                 //researched appending of object output streams here: https://stackoverflow.com/questions/1194656/appending-to-an-objectoutputstream?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
                 FileOutputStream fos;
                 fos = new FileOutputStream(dormFile);
-                //AppendObjectOutputStream aoos = new AppendObjectOutputStream(fos);
-                //aoos.writeObject(tempDorm.allPosts);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(allPosts2);
                 oos.close();
@@ -61,9 +59,6 @@ public class DormDao {
                 fos = new FileOutputStream(dormFile);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(tempDorm.allPosts);
-                //for(PostModel p: tempDorm.allPosts){
-                    //oos.writeObject(p);
-                //}
                 oos.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -95,8 +90,6 @@ public class DormDao {
             while (fin.available() != 0) {
                 try {
                     ObjectInputStream ois = new ObjectInputStream(fin);
-                    //ArrayList<PostModel> object = (ArrayList <PostModel>) ois.readObject();
-                    //tempDorm.allPosts = (ArrayList<PostModel>) object.clone();
                     tempDorm2.allPosts = (ArrayList<PostModel>) ois.readObject();
                 } catch (ClassNotFoundException | StreamCorruptedException e) {
                     e.printStackTrace();
@@ -111,13 +104,5 @@ public class DormDao {
     private static void copyFile(File source, File dest) throws IOException {
         Files.copy(source.toPath(), dest.toPath());
     }
-    /**
-     * Unit test program.
-     *
-     * @param args
-     */
-    /*public static void main(String[] args) {
-        testPostDao();
-    }*/
 
 }

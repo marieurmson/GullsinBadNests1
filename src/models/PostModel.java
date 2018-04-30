@@ -29,7 +29,7 @@ public class PostModel implements Serializable {
             return "Endicott Hall";
         }
         else if(dormIndex==6){
-            return "Grates Hall";
+            return "Frates Hall";
         }
         else if(dormIndex==7){
             return "Gloucester Hall";
@@ -124,11 +124,4 @@ public class PostModel implements Serializable {
     public void setCommentOnPostID(int commentOnPostID) {
         this.commentOnPostID = commentOnPostID;
     }
-   // public String getCommentContent() {
-     //   return commentContent;
-   // }
-
-   // public void setCommentContent(String commentContent) {
-      //  this.commentContent = commentContent;
-    //}
 }

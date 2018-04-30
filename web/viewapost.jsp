@@ -13,7 +13,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
-<title>View a Post</title>
+<title><%=(String) request.getSession().getAttribute("author of clicked post")%>'s post</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" href="resources/style.css">
 
@@ -71,9 +71,8 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <%-- MU changed nav bar --%>
+                        <%-- changed nav bar --%>
                         <li class="active"><a href="viewPosts">Home</a></li>
-                        <%--<li class="inactive"><a href="viewPosts">All Residence Halls</a></li>--%>
                         <div class="dropdown">
                             <button class="dropbtn">All Residence Halls
                                 <i class="fa fa-caret-down"></i>
@@ -87,7 +86,7 @@
                                 <%}%>
                             </div>
                         </div>
-                        <%-- MU removed third part of nav bar --%>
+                        <%-- removed third part of nav bar --%>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="welcome"><span class="glyphicon glyphicon-log-out"></span>Log Out <b><%=user.getUsername()%></b></a></li>
@@ -95,8 +94,6 @@
                 </div>
             </div>
         </nav>
-
-        <!--jumbotron went here -->
 
         <!-- Display post -->
         <div class="container">
@@ -106,7 +103,7 @@
                 </h3>
                 <div class="pre-scrollable">
                     <div class="post-data">
-                    <%=(String) request.getSession().getAttribute("clicked post data")%>
+                        <%=(String) request.getSession().getAttribute("clicked post data")%>
                     </div>
                 </div>
             </div>
@@ -139,7 +136,6 @@
             <div class="comment-container2">
             <div class="row">
                 <div class="well well-sm">
-                    <%//PostModel[] comments = request.getAttribute("postcomments", posts);%>
                     <h3><p class="text-primary"><%=comments.length%> Comments</h3>
                     <div class="pre-scrollable">
                         <ul class="list-group">
